@@ -1,0 +1,76 @@
+"""
+ TITLE: Attempt to create an Sql Database -- with Python
+ VERSION: Nil
+ CREATED: Unknown
+ AUTHOR: GREER, J
+ 
+ DESCRIPTION:
+ Here lies my first attempt to create a database using Python, with the sqlite module.
+ """
+
+
+import sqlite3
+
+Client =1
+
+conn = sqlite3.connect('workdb')
+c = conn.cursor()
+
+class database:
+    def create_database():
+        #Create table clients
+        c.execute("CREATE TABLE IF NOT EXISTS clients(ClientID int, Firstname text, Lastname text, DOB text, RelationshipID int)")
+
+        #Create table alieses
+        c.execute("CREATE TABLE IF NOT EXISTS alieses(NameID int, ClientID int, Firstname text, Lastname text, Date text)")
+
+        #Create table Relationsihps
+        c.execute("CREATE TABLE IF NOT EXISTS relationships(RelationshipID int, Relationshiptype text, Date text)")
+
+        #Create table incidents
+        c.execute("CREATE TABLE IF NOT EXISTS incidents(IncidentID int, ClientID int, Date text, Description blob)")
+
+
+    #reset current clientID
+    def get_clientID():
+        c.execute("SELECT * FROM clients")
+        data = c.fetchall()
+        global Client
+        Client = (len(data))    
+
+    #new client
+    def data_entry():
+        Firstname = input("What's your first name? ").lower()
+        Lastname = input("What's your last name? ").upper()
+        DOB = input("What's your date of birth? nn/nn/nn")
+        global Client
+        ClientID = Client
+        Client += 1
+        
+        c.execute("INSERT INTO clients (Firstname, Lastname, DOB, ClientID) VALUES (?,?,?,?)", (Firstname, Lastname, DOB, ClientID))
+        conn.commit()
+
+    #look at all clients
+    def read(criteria):
+        c.execute("SELECT * FROM clients WHERE (?))",(criteria))
+        data = c.fetchall()
+        for row in data:
+            print(row)
+
+    #update data on a client
+    def update():
+        #c.execute("SELECT (?) FROM (?)")
+        c.execute("UPDATE clients SET RelationshipID = 2 WHERE Firstname = 'jay'")
+        conn.commit()
+
+    #remove a client
+    def remove():
+        c.execute("DElETE FROM clients WHERE Firstname = 'jay'")
+        conn.commit()
+
+
+#database.create_database()
+#database.data_entry()
+print(database.read('Firstname = jay'))
+c.close()
+conn.close()
