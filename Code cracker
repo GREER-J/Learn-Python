@@ -1,0 +1,38 @@
+ """
+ TITLE: Code cracker
+ VERSION: Nil
+ CREATED: 2017
+ AUTHOR: GREER, J
+ 
+ DESCRIPTION:
+ In 2017 while sitting in class a lecturer presented a "puzzle" whereby we were given a cipher and a key.
+ The challenge being to decrypt the cipher which was some important message pertinent to the class.
+ 
+ This was my attempt to solve the puzzle using Python (because why not!).
+ Surpisingly this code worked, despite being thrown together in a few minutes while in class.
+ """
+ 
+ListOneFinal = {'A': 'B', 'B': 'O', 'C': 'P', 'D': 'Q', 'E': 'S', 'F': 'W', 'G': 'X', 'H': 'C', 'I': 'E', 'J': 'M', 'K': 'H', 'L': 'T', 'M': 'Z', 'N': 'N', 'O': 'I', 'P': 'V', 'Q': 'K', 'R': 'D', 'S': 'A', 'T': 'F', 'U': 'G', 'V': 'L', 'W': 'R', 'X': 'J', 'Y': 'U', 'Z': 'Y'}
+
+#cstti
+
+ListTwoFinal = {'A': 'H', 'B': 'F', 'C': 'N', 'D': 'K', 'E': 'Y', 'F': 'I', 'G': 'V', 'H': 'L', 'I': 'D', 'J': 'P', 'K': 'X', 'L': 'S', 'M': 'E', 'N': 'J', 'O': 'Q', 'P': 'A', 'Q': 'Z', 'R': 'T', 'S': 'B', 'T': 'M', 'U': 'E', 'V': 'W', 'W': 'O', 'X': 'U', 'Y': 'G', 'Z': 'C'}
+
+ListThreeFinal = {'A': 'F', 'B': 'Q', 'C': 'M', 'D': 'H', 'E': 'I', 'F': 'Z', 'G': 'T', 'H': 'O', 'I': 'N', 'J': 'V', 'K': 'S', 'L': 'X', 'M': 'E', 'N': 'C', 'O': 'A', 'P': 'P', 'Q': 'D', 'R': 'G', 'S': 'W', 'T': 'Y', 'U': 'L', 'V': 'R', 'W': 'K', 'X': 'B', 'Y': 'J', 'Z': 'U'}
+
+def change():
+  Question = input("What question? ")
+  if Question == "1":
+    Question = ListOneFinal
+  elif Question == "2":
+    Question = ListTwoFinal
+  else:
+    Question = ListThreeFinal
+  final = ""
+  cypher = str(input("Enter the scrambled words").upper())
+  for letter in cypher:
+    final += str(Question[letter])
+  print(final)
+  
+
+change()
