@@ -1,0 +1,44 @@
+ """
+ TITLE: Number guessing game
+ VERSION: Nil
+ CREATED: 2017
+ AUTHOR: GREER, J
+ 
+ DESCRIPTION:
+This was my first use of functions. I recreated a simple game I'd made earlier, this time using functions.
+ """
+
+'''
+Higher or lower game but in reverse (computer suggests numbers, user says H or L)
+'''
+import random
+import statistics
+history = {}
+
+
+def check(guess):
+  if guess == secret:
+    return('win')
+  elif guess < secret:
+    return('H')
+  elif guess > secret:
+    return('L')
+
+secret =1
+while secret < 100:
+  floor = 0
+  roof = 100
+  counter = 0
+  while True:
+    counter +=1
+    guess = random.randrange(floor,roof)
+    if check(guess) == 'win':
+      break
+    elif check(guess) == 'H':
+      floor = guess
+    elif check(guess) == 'L':
+      roof = guess
+  history[secret]=counter
+  secret +=1
+
+print(history)
