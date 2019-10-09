@@ -1,0 +1,70 @@
+'''
+Cows and bulls game:
+Generate a 4 digit number and ask the user to guess what the number is.
+For every correct number the user gets a 'cow' for every correct number in the wrong place the user gets a 'bull'
+The program then tells the user how many 'cows' and 'bulls' until the number is guessed.
+The program also keeps track of the users guessses via counter (and maybe checks for doubl).
+'''
+import random
+import time
+
+#creates the initial lists for number and user guess.
+number = []
+
+
+#Generates number using random numbers, stored in a list (called number)
+def generate():
+  for count in range(1,5):
+   x = str(random.randrange(0,9))
+   number.append(int(x))
+
+
+#Asks the user for a guess and puts said guess into a list (called guess)
+def guess():
+  time.sleep(1)
+  global user
+  user = []
+  guess = int(input("Your guess: "))
+  guess = str(guess)
+  for n in guess:
+    user.append(int(n))
+  
+
+#Checks a digit of user against number then checks for that digit anywhere in number. Adds cows and bulls where appropriate.
+def check():
+  cow = 0
+  bull = 0
+  for index in range(0,4):
+    if user[index] == number[index]:
+      cow += 1
+    elif user[index] in number:
+        bull +=1
+    continue
+  return(cow, bull)
+
+def checkwin(guess):
+    return bool(guess == number)
+
+#Main loop to run the program
+def main():
+  print("\nWelcome, the program has now generated a four digit number, you will try to guess that number using as few guesses as possible.")
+  time.sleep(5)
+  print("\nOnce you enter a guess you will be told how many 'cows' and how many 'bull' you have.")
+  time.sleep(5)
+  print("\nA cow (the first number) means that one of your numbers was the right number AND it was in the right place. A bull (the second number) means you had a correct number but it was the wrong place.")
+  time.sleep(7)
+  print("\nYou can press any character to exit. Good luck.")
+  generate()
+  count = 0
+  while True:
+    print("\nEnter a four digit number to guess")
+    print("\nYou have used", count, "moves")
+    guess()
+    if checkwin(user) == False:
+      data =(check())
+      count +=1
+      print("You have", data[0], "cows and",data[1], "bulls")
+    else:
+      print("Congratulations, the number was {}".format(number))
+      break
+main()
